@@ -44,35 +44,33 @@ def win_stat(wnd_list, stat):
   else:
     returned_lst = None
   
-  return(returned_lst)
+  return(np.expand_dims(returned_lst, axis=1))
 
 
-def difference(data, d):
-  return(data.diff(d))
+def difference(data, lag):
+  return(data.diff(lag))
 
-def momentum(data, d):
-  return(difference(difference(data, d), d))
+def momentum(data, lag):
+  return(difference(difference(data, lag), lag))
 
-def force(data, d):
-  return(difference(momentum(data, d), d))
-
-
+def force(data, lag):
+  return(difference(momentum(data, lag), lag))
 
 
-def difference_comb(data, window, d, cutt=False):
 
-  cut = window - d
+
+def difference_comb(data, window, lag):
+
+  cut = window - lag
 
   if cut <= 0:
     raise Exception("Window size must be greater than differencing")
 
-  multi_diff = difference(pd.DataFrame(window_list(data, window-1)), d)
-  single_diff = difference(data, d)
+  multi_diff = difference(pd.DataFrame(window_list(data, window-1)), lag)
+  single_diff = difference(data, lag)
 
   multi_size = multi_diff.shape[1]
-
-  if cutt:
-    multi_diff = multi_diff.iloc[:, d:]
+  multi_diff = multi_diff.iloc[:, lag:]
 
   diffed = np.column_stack((multi_diff, single_diff.rename(multi_size)))
 
@@ -80,39 +78,35 @@ def difference_comb(data, window, d, cutt=False):
 
   #return(pd.DataFrame(diffed))
 
-def momentum_comb(data, window, d, cutt=False):
+def momentum_comb(data, window, lag):
 
-  cut = window - d
+  cut = window - lag
 
   if cut <= 0:
     raise Exception("Window size must be greater than differencing")
 
-  multi_diff = momentum(pd.DataFrame(window_list(data, window-1)), d)
-  single_diff = momentum(data, d)
+  multi_diff = momentum(pd.DataFrame(window_list(data, window-1)), lag)
+  single_diff = momentum(data, lag)
 
   multi_size = multi_diff.shape[1]
-
-  if cutt:
-    multi_diff = multi_diff.iloc[:, d:]
+  multi_diff = multi_diff.iloc[:, lag:]
 
   diffed = np.column_stack((multi_diff, single_diff.rename(multi_size)))
 
   return(diffed)
 
-def force_comb(data, window, d, cutt=False):
+def force_comb(data, window, lag):
 
-  cut = window - d
+  cut = window - lag
 
   if cut <= 0:
     raise Exception("Window size must be greater than differencing")
 
-  multi_diff = force(pd.DataFrame(window_list(data, window-1)), d)
-  single_diff = force(data, d)
+  multi_diff = force(pd.DataFrame(window_list(data, window-1)), lag)
+  single_diff = force(data, lag)
 
   multi_size = multi_diff.shape[1]
-
-  if cutt:
-    multi_diff = multi_diff.iloc[:, d:]
+  multi_diff = multi_diff.iloc[:, lag:]
 
 
   diffed = np.column_stack((multi_diff, single_diff.rename(multi_size)))
