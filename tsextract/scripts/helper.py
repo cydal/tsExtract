@@ -28,34 +28,6 @@ def window_list(data, window):
 # Feature_list -> (dict_object) difference_comb() -> window_list
 
 
-## Returns 1-dim vector of summary stats
-## Expects 2 dim matrix
-
-def win_stat(wnd_list, stat):
-  if stat == "mean":
-    returned_lst = wnd_list.mean(axis=1)
-  elif stat == "median":
-    returned_lst = np.median(wnd_list, axis=1)
-  elif stat == "std":
-    returned_lst = wnd_list.std(axis=1)
-  elif stat == "min":
-    returned_lst = wnd_list.min(axis=1)
-  elif stat == "max":
-    returned_lst = wnd_list.max(axis=1)
-  elif stat == "range":
-    returned_lst = np.ptp(wnd_list, axis=1)
-  elif stat == "skew":
-    returned_lst = skew(wnd_list, axis=1)
-  elif stat == "kurtosis":
-    returned_lst = kurtosis(wnd_list, fisher=False, axis=1)
-  elif stat == "moment":
-    returned_lst = moment(wnd_list, moment=1, axis=1)
-
-  else:
-    returned_lst = None
-  
-  return(np.expand_dims(returned_lst, axis=1))
-
 
 ## Difference/Momentum/Force helper functions
 def difference(data, lag):
@@ -71,7 +43,6 @@ def force(data, lag):
 
 ## Perform diff/mom/force operations
 def difference_comb(data, window_lag):
-
   ## Check size of window_size
   if len(window_lag) == 2:
     ## Number of features to return
@@ -170,17 +141,12 @@ def force_comb(data, window_lag):
 
   return(diffed)
 
-
-
-
 ### Get number of NaN values to drop
 ### returns NaNs at start & bottom of last T+ column.
 
 def get_num_nan(df):
   num_nan = df.isnull().sum()
   return([max(num_nan[0:-1]), list(num_nan)[-1]])
-
-
 
 ## 2-d Matrix to Pandas Dataframe
 ## adds global index as DF index
@@ -190,9 +156,6 @@ def build_data(data, index):
   data_df["Date"] = index
   data_df = data_df.set_index("Date")
   return(data_df)
-
-
-
 
 ## Re-Centers data after multiple shifts
 ## uses num_nan output
@@ -208,7 +171,7 @@ def get_lag_corr(pred, actual, num_lags):
     for c in range(num_lags):
         lagged = pd.Series(pred).shift(c)
         lags.append(scipy.stats.spearmanr(lagged, actual, nan_policy='omit')[0])
-        
+
     return(lags)
 
 
@@ -229,7 +192,7 @@ def get_lag_corr(pred, actual, num_lags):
 ## Done
 ## Todo - Add argument correct format checking
 
-
+'''
 def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   ## Check window option present
@@ -248,7 +211,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
   def window(features_item):
     return(window_list(data, features_item))
 
-  ## Function overload - 
+  ## Function overload -
   def window_statistic(features_item):
     if len(features_item) == 2:
       return(win_stat(window_list(data, [features_item[0]]), features_item[1]))
@@ -267,31 +230,31 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   def difference_statistic(features_item):
     if len(features_item) == 3:
-      return(win_stat(difference_comb(data, [features_item[0], features_item[1]]), 
+      return(win_stat(difference_comb(data, [features_item[0], features_item[1]]),
              features_item[2]))
     else:
-      return(win_stat(difference_comb(data, [features_item[0], features_item[1], features_item[2]]), 
+      return(win_stat(difference_comb(data, [features_item[0], features_item[1], features_item[2]]),
              features_item[3]))
-    
+
 
   def momentum_statistic(features_item):
     if len(features_item) == 3:
-      return(win_stat(momentum_comb(data, [features_item[0], features_item[1]]), 
+      return(win_stat(momentum_comb(data, [features_item[0], features_item[1]]),
              features_item[2]))
     else:
-      return(win_stat(momentum_comb(data, [features_item[0], features_item[1], features_item[2]]), 
+      return(win_stat(momentum_comb(data, [features_item[0], features_item[1], features_item[2]]),
              features_item[3]))
-    
+
   def force_statistic(features_item):
     if len(features_item) == 3:
-      return(win_stat(force_comb(data, [features_item[0], features_item[1]]), 
+      return(win_stat(force_comb(data, [features_item[0], features_item[1]]),
              features_item[2]))
     else:
-      return(win_stat(force_comb(data, [features_item[0], features_item[1], features_item[2]]), 
+      return(win_stat(force_comb(data, [features_item[0], features_item[1], features_item[2]]),
              features_item[3]))
 
   ## Store feature names of type statistic
-  stat_features = ["window_statistic", "difference_statistic", 
+  stat_features = ["window_statistic", "difference_statistic",
                    "momentum_statistic", "force_statistic"]
 
   ## Store feature names of non statistic type
@@ -306,7 +269,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
     tzero = pd.DataFrame(np.expand_dims(data, axis=1), columns=["tzero"])
 
   # Get T+ target
-  target = pd.DataFrame(np.expand_dims(data.shift(-target_lag), axis=1), 
+  target = pd.DataFrame(np.expand_dims(data.shift(-target_lag), axis=1),
                         columns=["Target_Tplus{0}".format(str(target_lag))])
 
   ### Loop through features
@@ -339,7 +302,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
       features[feat_name] = pd.DataFrame(f[1], columns=window_range)
 
-  
+
   # Combine rest of features
   for d in features:
     df = pd.concat([df, features[d]], axis=1)
@@ -357,3 +320,4 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   # Remove NaN values
   return(cut_final(df))
+  '''

@@ -4,16 +4,13 @@
 import statsmodels.api as sm
 import numpy as np
 
-class spectral:
+axis = 1
 
-    def __init__(self):
-        self.axis = 1
+def spectral_centroid(data):
+    def _spectral(row):
+        spectrum = abs(rfft(row))
+        normalized_spectrum = spectrum / sum(spectrum)
+        normalized_frequencies = linspace(0, 1, len(spectrum))
+        return(sum(normalized_frequencies * normalized_spectrum))
 
-    def spectral_centroid(data):
-        def _spectral(row):
-            spectrum = abs(rfft(row))
-            normalized_spectrum = spectrum / sum(spectrum)
-            normalized_frequencies = linspace(0, 1, len(spectrum))
-            return(sum(normalized_frequencies * normalized_spectrum))
-
-        return(np.apply_along_axis(_spectral, data))
+    return(np.apply_along_axis(_spectral, data))
