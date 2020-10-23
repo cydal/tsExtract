@@ -165,6 +165,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   # Add feature name for stat features - window/lag/statfeature
     if f[0] in stat_features: ## If stat feats
+        features_request[f[0]][-1] = str(features_request[f[0]][-1]).split()[1]
         feat_name = "_".join([str(x) for x in features_request[f[0]]])
         feat_name = "{0}_{1}".format(f[0], feat_name)
         features[feat_name] = pd.DataFrame(f[1], columns=[feat_name])
@@ -189,7 +190,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
   for d in features:
     df = pd.concat([df, features[d]], axis=1)
 
-  # Add t+1 & t+0
+  # Add t+0
   if include_tzero:
     df = pd.concat([df, tzero], axis=1)
 
