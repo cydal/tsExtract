@@ -29,14 +29,71 @@ def win_stat(data, fun_c):
 
 def build_features(data, features_request, target_lag=3, include_tzero=True):
 
-  ## Check window option present
+  ## window format
   if "window" not in features_request.keys():
-    raise Exception("Features dictionary must contain at the least, a window size")
+    raise Exception("Features request must contain at the least, a window OP")
 
   # Check input format correct
-  if len(features_request["window"]) != 1:
-    if type(features_request["window"][0]) != int:
-      raise Exception("Expects list of size 1 with integer value for window size")
+  ### This needs to be reviewed
+  ## Window Check
+  if (len(features_request["window"]) != 1 and len(features_request["window"]) != 2):
+      raise Exception("Input for window Op must be of size 1 or size 2")
+  if not all(isinstance(n, int) for n in features_request["window"]):
+      raise Exception("Window OP values must be of type int")
+
+  ## window_stat format
+  if "window_statistic" in features_request.keys():
+      if (len(features_request["window_statistic"]) != 2 and len(features_request["window_statistic"]) != 3):
+        raise Exception("Input for window_stat Op must be of size 2 or 3")
+
+      if not all(isinstance(n, int) for n in features_request["window_statistic"][:-1]):
+        raise Exception("Window values must be of type int")
+
+  ## difference format
+  if "difference" in features_request.keys():
+     if (len(features_request["difference"]) != 2 and len(features_request["difference"]) != 3):
+       raise Exception("Input for difference Op must be of size 2 or size 3")
+     if not all(isinstance(n, int) for n in features_request["difference"]):
+       raise Exception("difference OP values must be of type int")
+
+  ## momentum format
+  if "momentum" in features_request.keys():
+     if (len(features_request["momentum"]) != 2 and len(features_request["momentum"]) != 3):
+       raise Exception("Input for momentum Op must be of size 2 or size 3")
+     if not all(isinstance(n, int) for n in features_request["momentum"]):
+       raise Exception("momentum OP values must be of type int")
+
+  ## force format
+  if "force" in features_request.keys():
+     if (len(features_request["force"]) != 2 and len(features_request["force"]) != 3):
+       raise Exception("Input for force Op must be of size 2 or size 3")
+     if not all(isinstance(n, int) for n in features_request["force"]):
+       raise Exception("force OP values must be of type int")
+
+  ## difference format
+  if "difference_statistic" in features_request.keys():
+     if (len(features_request["difference_statistic"]) != 3 and len(features_request["difference_statistic"]) != 4):
+       raise Exception("Input for difference_stat Op must be of size 3 or 4")
+
+  if not all(isinstance(n, int) for n in features_request["difference_statistic"][:-1]):
+     raise Exception("difference_stat window & lag values must be of type int")
+
+  ## momentum format
+  if "momentum_statistic" in features_request.keys():
+     if (len(features_request["momentum_statistic"]) != 3 and len(features_request["difference_statistic"]) != 4):
+      raise Exception("Input for momentum_stat Op must be of size 3 or 4")
+
+  if not all(isinstance(n, int) for n in features_request["momentum_statistic"][:-1]):
+      raise Exception("momentum_stat window & lag values must be of type int")
+
+  ## force format
+  if "force_statistic" in features_request.keys():
+     if (len(features_request["force_statistic"]) != 3 and len(features_request["force_statistic"]) != 4):
+      raise Exception("Input for force_stat Op must be of size 3 or 4")
+
+  if not all(isinstance(n, int) for n in features_request["force_statistic"][:-1]):
+    raise Exception("force_stat window & lag values must be of type int")
+
 
   features_list = []
   features = {}
@@ -60,16 +117,13 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   ### Confirm  1-2 windowing
   def difference_statistic(features_item):
-    return(win_stat(difference_comb(data, features_item[0], features_item[1]),
-             features_item[2]))
+    return(win_stat(difference_comb(data, features_item[:-1]), features_item[-1]))
 
   def momentum_statistic(features_item):
-    return(win_stat(momentum_comb(data, features_item[0], features_item[1]),
-             features_item[2]))
+    return(win_stat(momentum_comb(data, features_item[:-1]), features_item[-1]))
 
   def force_statistic(features_item):
-    return(win_stat(force_comb(data, features_item[0], features_item[1]),
-             features_item[2]))
+    return(win_stat(force_comb(data, features_item[:-1]), features_item[-1]))
 
   ## Store feature names of type statistic
   stat_features = ["window_statistic", "difference_statistic",
@@ -94,6 +148,7 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
 
   ### Loop through features
   ## Ensure window data is processed first
+  ## Clashing function names - fix
   for f in features_list:
       ### Windowed data - First & Always required
     if f[0] == "window":
@@ -109,20 +164,22 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
       df = pd.DataFrame(f[1], columns=window_range)
 
   # Add feature name for stat features - window/lag/statfeature
-  ## Pause
     if f[0] in stat_features: ## If stat feats
         feat_name = "_".join([str(x) for x in features_request[f[0]]])
+        feat_name = "{0}_{1}".format(f[0], feat_name)
         features[feat_name] = pd.DataFrame(f[1], columns=[feat_name])
-
 
   # Add multi row names for non-stat features
     if f[0] in nonstat_features: ## If non stat feats
       feat_name = "_".join([str(x) for x in features_request[f[0]]])
+      feat_name = "{0}_{1}".format(f[0], feat_name)
+
 
   # Add column names & save to dataframe
   ### Get the diff between window_size & lag value
   ## check size of input
       #win_lag_diff = features_request[f[0]][0] - features_request[f[0]][1]
+
       win_lag_diff = f[1].shape[1]
       window_range = ["{1}-{0}".format(i, feat_name) for i in range(1, win_lag_diff+1)][::-1]
       features[feat_name] = pd.DataFrame(f[1], columns=window_range)
@@ -143,5 +200,8 @@ def build_features(data, features_request, target_lag=3, include_tzero=True):
   df["Date"] = data.index
   df = df.set_index("Date")
 
+  ## Cut off NaNs
+  df = cut_final(df)
+
   # Remove NaN values
-  return(cut_final(df))
+  return(df)
