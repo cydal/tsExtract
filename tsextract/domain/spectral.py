@@ -7,6 +7,20 @@ import numpy as np
 axis = 1
 
 def spectral_centroid(data):
+    """Calculates spectral centroid
+
+    Parameters
+    ----------
+
+    data : Series or vector
+        Time series data to perform operation on
+
+    Returns
+    -------
+    Array
+        1-dim array
+
+    """
     def _spectral(row):
         spectrum = abs(rfft(row))
         normalized_spectrum = spectrum / sum(spectrum)
