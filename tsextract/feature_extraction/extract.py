@@ -3,9 +3,9 @@ import numpy as np
 import scipy.stats
 
 import sys
-sys.path.append('../')
+sys.path.append('../scripts')
 
-from scripts.helper import *
+from helper import *
 
 
 ## Target Lag - T+ for predictive variable
