@@ -5,17 +5,28 @@ with open("README.md", "r") as f:
     LONG_DESC = f.read()
 
 setup(name="tsextract", 
-      version='1.11',
+      version='1.14',
       license='GNU GPL',
       url="https://github.com/cydal/tsExtract/tree/master/tsextract",
-      description="Time series preprocessing as supervised learning", 
+      description="Time series data preprocessing", 
       long_description=LONG_DESC,
       long_description_content_type="text/markdown",
-      #packages=setuptools.find_packages(where='tsextract/*'),
-      #packages=["domain", "feature_extraction", "plots"], 
-      #package_dir={"": 'tsextract'}, 
-      packages=find_packages(include=["tsextract", "tsextract.*"]),
+      packages=find_packages(include=["tsextract", "tsextract.*"], exclude=["scripts.*"]),
       author="Sijuade Oguntayo", 
       author_email="cydalsij@outlook.com", 
       python_requires=">=3.6",
+      install_requires=[
+      "pandas >= 1.0.3",
+      "seaborn == 0.10.1",
+      "statsmodels == 0.11.1",
+      "scipy == 1.5.0",
+      "matplotlib == 3.2.1",
+      "numpy == 1.16.4"], 
+      classifiers=[
+         "Programming Language :: Python :: 3", 
+         "Programming Language :: Python :: 3.6", 
+         "Programming Language :: Python :: 3.7", 
+         "License :: OSI Approved :: GNU General Public License (GPL)", 
+         "Operating System :: OS Independent"
+      ], 
       zip_safe=False)
