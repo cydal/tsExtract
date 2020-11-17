@@ -6,6 +6,7 @@ tsextract.egg-info/PKG-INFO
 tsextract.egg-info/SOURCES.txt
 tsextract.egg-info/dependency_links.txt
 tsextract.egg-info/not-zip-safe
+tsextract.egg-info/requires.txt
 tsextract.egg-info/top_level.txt
 tsextract/domain/__init__.py
 tsextract/domain/spectral.py

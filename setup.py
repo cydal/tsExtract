@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
     LONG_DESC = f.read()
 
 setup(name="tsextract", 
-      version='1.14',
+      version='1.0.1',
       license='GNU GPL',
       url="https://github.com/cydal/tsExtract/tree/master/tsextract",
       description="Time series data preprocessing", 
@@ -17,11 +17,11 @@ setup(name="tsextract",
       python_requires=">=3.6",
       install_requires=[
       "pandas >= 1.0.3",
-      "seaborn == 0.10.1",
-      "statsmodels == 0.11.1",
-      "scipy == 1.5.0",
-      "matplotlib == 3.2.1",
-      "numpy == 1.16.4"], 
+      "seaborn >= 0.10.1",
+      "statsmodels >= 0.11.1",
+      "scipy >= 1.5.0",
+      "matplotlib >= 3.2.1",
+      "numpy >= 1.16.4"], 
       classifiers=[
          "Programming Language :: Python :: 3", 
          "Programming Language :: Python :: 3.6", 

@@ -1,15 +1,14 @@
-
-
 ![logo](https://i.postimg.cc/rmQyz7bT/png.png)
 
 
-## Time Series Extract Library (tsExtract)
+## tsExtract: Time Series Preprocessing Library
 
+tsExtract is a time series proprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
 
-This library provides helper functions for preprocessing Time Series data for training Machine Learning models. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
+| ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) |![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)  |![enter image description here](https://img.shields.io/badge/STATUS-stable-green)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  |
+|--|--|--|--|--|--|--|--|
+|  |  |  |  |  |  |  |
 
-|![license_badge](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) | ![stable image description here](https://img.shields.io/badge/STATUS-stable-green) | ![stable image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow) | ![stable image description here](https://img.shields.io/badge/Anaconda-v1.0.0-blue) |
-|--|--|--|--|
 
 
 # Installation
@@ -19,7 +18,7 @@ This library provides helper functions for preprocessing Time Series data for tr
 > **pip install tsextract**
 
 <code> conda </code>
-> **conda install tsextract**
+> **conda install -c cydal tsextract**
 
 
 
@@ -93,14 +92,10 @@ from tsextract.domain.statistics import median, mean, skew, kurtosis
 from tsextract.domain.temporal import abs_energy
 
 features_request = {
-    "window":[10], 
+    "window":[2], 
     "window_statistic":[24, median], 
-    "difference":[15, 10],
-    "momentum":[15, 10],
-    "force":[15, 10],
-    "difference_statistic":[15, 10, mean], 
-    "momentum_statistic":[15, 10, abs_energy],
-    "force_statistic":[15, 10, mean], 
+    "difference":[12, 10],
+    "difference_statistic":[15, 10, abs_energy], 
 }
 
 features = build_features(df["DAYTON_MW"], features_request, include_tzero=True, target_lag=3)
@@ -108,8 +103,39 @@ features = build_features(df["DAYTON_MW"], features_request, include_tzero=True,
 
 ![enter image description here](https://i.postimg.cc/VvVhrsgm/Screenshot-2020-11-11-at-01-00-16.png)
 
+# Summary Statistics
+
+
+As described above, rather than take raw windowing or differencing matrix values, it is possible to take some summary statistic of it. See supported features. 
+
+
+| Statistics      | Temporal | Spectral   |
+| :---        |    :----:   |          ---: |
+| Mean      | Absolute Energy       | Spectral Centroid   |
+| Median   | AUC        |      |
+| Range   | Mean Absolute Difference        |       |
+| Standard Deviation   | Moment        |      |
+| Minimum   | Autocorrelation        |     |
+| Maximum   | Zero Crossing Rate         |   |
+| Range   |         |      |
+| Variance   |         |     |
+| Kurtosis   |         |    |
+| Skew   |         |     |
+| IQR   |         |     |
+| MAE   |         |     |
+| RMSE   |         |     |
+
+
+
+
 ## Dependencies
 
+* pandas >= 1.0.3
+* seaborn >= 0.10.1
+* statsmodels >= 0.11.1
+* scipy >= 1.5.0
+* matplotlib >= 3.2.1
+* numpy >= 1.16.4
 
 
 ## License
@@ -127,8 +153,3 @@ Contributors of all experience levels are welcome. Please see the contributing g
 <code> You can get the latest source code </code>
 
 > git clone https://github.com/cydal/tsExtract.git 
-
-
-
-
-

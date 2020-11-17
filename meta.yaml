@@ -1,0 +1,39 @@
+{% set version = "1.0.1" %}
+
+package:
+  name: tsextract
+  version: {{ version }}
+
+source:
+  path: ../tsextract
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - 'pandas >=1.0.3'
+    - 'seaborn >=0.10.1'
+    - 'statsmodels >=0.11.1'
+    - 'scipy >=1.5.0'
+    - 'matplotlib >=3.2.1'
+    - 'numpy >=1.16.4'
+
+about:
+  home: https://github.com/cydal/tsExtract
+  license: GNU GPL
+  summary: 'Time Series Data Preprocessing'
+  description: |
+    This library provides helper functions for preprocessing Time Series data for training Machine Learning models. 
+    Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into 
+    standard machine learning regression algorithms like Linear Regression, 
+    Decision Trees Regression and as well as Deep Learning.
+  dev_url: https://github.com/cydal/tsExtract
+  doc_url: https://github.com/cydal/tsExtract
+  doc_source_url: https://github.com/cydal/tsExtract/README.md
