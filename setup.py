@@ -5,13 +5,13 @@ with open("README.md", "r") as f:
     LONG_DESC = f.read()
 
 setup(name="tsextract", 
-      version='1.0.1',
+      version='0.0.6',
       license='GNU GPL',
       url="https://github.com/cydal/tsExtract/tree/master/tsextract",
       description="Time series data preprocessing", 
       long_description=LONG_DESC,
       long_description_content_type="text/markdown",
-      packages=find_packages(include=["tsextract", "tsextract.*"], exclude=["scripts.*"]),
+      packages=find_packages(include=["tsextract", "tsextract.*"]),
       author="Sijuade Oguntayo", 
       author_email="cydalsij@outlook.com", 
       python_requires=">=3.6",

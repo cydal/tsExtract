@@ -40,10 +40,10 @@ def actualPred(y_true, y_pred):
     y_pred : Series or vector
         Predicted values
     """
-    ax = sns.lineplot(range(y_true.shape[0]), y_true,
+    ax = sns.lineplot(x=range(y_true.shape[0]), y=y_true,
                       color="blue", label="Actual", linestyle="-")
 
-    ax = sns.lineplot(range(y_pred.shape[0]), y_pred,
+    ax = sns.lineplot(x=range(y_pred.shape[0]), y=y_pred,
                   color="yellow", label="Predicted", linestyle="-")
 
     ax.set(xlabel='Time', ylabel='Y')
@@ -59,5 +59,5 @@ def scatter(y_true, y_pred):
     y_pred : Series or vector
         Predicted values
     """
-    ax = sns.scatterplot(y_true, y_pred)
+    ax = sns.scatterplot(x=y_true, y=y_pred)
     ax.set(xlabel='Actual', ylabel='Predicted')

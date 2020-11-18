@@ -3,11 +3,6 @@ import numpy as np
 from datetime import datetime
 from pandas import concat
 
-from scipy.stats import kurtosis, skew, moment, entropy
-import seaborn as sns
-sns.set()
-import matplotlib.pyplot as plt
-
 
 
 ## Description takes in 1-dim data, T+, window size

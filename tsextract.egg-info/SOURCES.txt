@@ -14,5 +14,6 @@ tsextract/domain/statistics.py
 tsextract/domain/temporal.py
 tsextract/feature_extraction/__init__.py
 tsextract/feature_extraction/extract.py
+tsextract/feature_extraction/helper.py
 tsextract/plots/__init__.py
 tsextract/plots/eval.py

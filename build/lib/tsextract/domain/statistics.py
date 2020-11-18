@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats
 from scipy.stats import kurtosis, skew, moment, entropy, iqr, median_absolute_deviation
 
 axis = 1
@@ -129,7 +130,7 @@ def kurtosis(data):
     Array
         1-dim array
     """
-    return kurtosis(data, axis=axis)
+    return stats.kurtosis(data, axis=axis)
 
 def skew(data):
     """Calculates Skew
@@ -145,7 +146,7 @@ def skew(data):
     Array
         1-dim array
     """
-    return skew(data, axis=axis)
+    return stats.skew(data, axis=axis)
 
 def iqr(data):
     """Calculates IQR
@@ -161,7 +162,7 @@ def iqr(data):
     Array
         1-dim array
     """
-    return iqr(data, axis=axis)
+    return stats.iqr(data, axis=axis)
 
 def mae(data):
     """Calculates MAE
