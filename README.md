@@ -32,6 +32,8 @@ tsExtract is a time series proprocessing library. Using sliding windows, tsExtra
 
 ## Usage
 
+### [Example Notebooks](https://github.com/cydal/tsExtract/tree/master/examples)
+
 ```python
 print(df.head())
 ```
@@ -131,8 +133,8 @@ As described above, rather than take raw windowing or differencing matrix values
 
 * pandas >= 1.0.3
 * seaborn >= 0.10.1
-* statsmodels >= 0.10.2
-* scipy >= 1.4.0
+* statsmodels >= 0.11.1
+* scipy >= 1.5.0
 * matplotlib >= 3.2.1
 * numpy >= 1.16.4
 
