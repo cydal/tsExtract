@@ -1,4 +1,4 @@
-![logo](https://i.postimg.cc/rmQyz7bT/png.png)
+![logo](https://i.postimg.cc/rsVLMjzn/tsextract-logo.jpg)
 
 
 ## tsExtract: Time Series Preprocessing Library
@@ -6,8 +6,7 @@
 tsExtract is a time series proprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
 
 | ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) |![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)  |![enter image description here](https://img.shields.io/badge/STATUS-stable-green)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  |
-|--|--|--|--|--|--|--|--|
-|  |  |  |  |  |  |  |
+[![Open Source Helpers](https://www.codetriage.com/cydal/tsextract/badges/users.svg)](https://www.codetriage.com/cydal/tsextract)
 
 
 
@@ -132,8 +131,8 @@ As described above, rather than take raw windowing or differencing matrix values
 
 * pandas >= 1.0.3
 * seaborn >= 0.10.1
-* statsmodels >= 0.11.1
-* scipy >= 1.5.0
+* statsmodels >= 0.10.2
+* scipy >= 1.4.0
 * matplotlib >= 3.2.1
 * numpy >= 1.16.4
 
