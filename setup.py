@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
     LONG_DESC = f.read()
 
 setup(name="tsextract", 
-      version='0.0.6',
+      version='0.0.7',
       license='GNU GPL',
       url="https://github.com/cydal/tsExtract/tree/master/tsextract",
       description="Time series data preprocessing", 

@@ -26,7 +26,7 @@ def get_lag_corr(y_actual, y_pred, num_lags):
         lagged = pd.Series(y_pred).shift(c)
         lags.append(scipy.stats.spearmanr(lagged, y_actual, nan_policy='omit')[0])
 
-    ax = sns.lineplot(range(len(lags)), lags, linestyle="-")
+    ax = sns.lineplot(x=range(len(lags)), y=lags, linestyle="-")
     ax.set(xlabel='Lag', ylabel='Corr Coefficient')
 
 
