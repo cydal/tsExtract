@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: tsextract
-Version: 0.0.7
+Version: 0.0.8
 Summary: Time series data preprocessing
 Home-page: https://github.com/cydal/tsExtract/tree/master/tsextract
 Author: Sijuade Oguntayo
@@ -11,9 +11,9 @@ Description: ![logo](https://i.postimg.cc/rsVLMjzn/tsextract-logo.jpg)
         
         ## tsExtract: Time Series Preprocessing Library
         
-        tsExtract is a time series proprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
+        tsExtract is a time series preprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
         
-        | ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) |![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)  |![enter image description here](https://img.shields.io/badge/STATUS-stable-green)  |![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  |
+        ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) ![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)    ![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  
         [![Open Source Helpers](https://www.codetriage.com/cydal/tsextract/badges/users.svg)](https://www.codetriage.com/cydal/tsextract)
         
         
@@ -32,7 +32,7 @@ Description: ![logo](https://i.postimg.cc/rsVLMjzn/tsextract-logo.jpg)
         ## Main Features
         
         * Take sliding window of data and with that, create additional columns representing the window. 
-        * Perform differencing on windowed data to remove stationarity. 
+        * Perform differencing on windowed data to remove non-stationarity. 
         * Calculate statistics on windowed and differenced data. These include temporal and spectral statistics functions. 
         * Plot visualisations. These include - 
         * * Actual vs Predicted line and scatter plots
@@ -64,7 +64,7 @@ Description: ![logo](https://i.postimg.cc/rsVLMjzn/tsextract-logo.jpg)
         * **Data**: Time series data in 1d. 
         
         * **Request Dictionary**: Dictionary with the function type and parameters
-        * **Include_tzero** (optional) - This gives the option on whether to also include the column t+0. Can be quite handy when implementing difference networks. 
+        * **Include_tzero** (optional) - This gives the option on whether to include the column t+0. Can be quite handy when implementing difference networks. 
         * **target_lag** - Sets lag value. If predicting 10 hours into the future, then a value of 10 should be included. Default is 3. 
         
         ```python
@@ -85,7 +85,7 @@ Description: ![logo](https://i.postimg.cc/rsVLMjzn/tsextract-logo.jpg)
         
         ### Features
         
-        * **window**: Performs windowing of the data. Parameter(s) passed in as a list. A single value will take a sliding window corresponding to that value. A parameter of 10 will take windows from 1 to 10. If [5, 10] is passed in instead, then a window of 5 - 10 will be taken instead. 
+        * **window**: Takes sliding window of the data. Parameter(s) passed in as a list. A single value will take a sliding window corresponding to that value. A parameter of 10 will take windows from 1 to 10. If [5, 10] is passed in instead, then a window of 5 to 10 time steps will be taken instead. 
         
         * **window_statistic**: This performs windowing like above, but then applies specified statistic operation to reduce matrix to a vector of 1d. 
         
