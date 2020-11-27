@@ -17,7 +17,7 @@ setup(name="tsextract",
       python_requires=">=3.6",
       install_requires=[
       "pandas >= 1.0.3",
-      "seaborn >= 0.10.1",
+      "plotnine >= 0.0.6",
       "statsmodels >= 0.10.2",
       "scipy >= 1.4.0",
       "matplotlib >= 3.2.1",
