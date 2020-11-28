@@ -3,11 +3,9 @@ import pandas as pd
 import numpy as np
 import scipy.stats
 
-import seaborn as sns
 import matplotlib.pyplot as plt
-sns.set()
-
-
+import plotnine
+from plotnine import *
 
 def get_lag_corr(y_actual, y_pred, num_lags):
     """Calculates & plots Lag Correlation
@@ -26,8 +24,19 @@ def get_lag_corr(y_actual, y_pred, num_lags):
         lagged = pd.Series(y_pred).shift(c)
         lags.append(scipy.stats.spearmanr(lagged, y_actual, nan_policy='omit')[0])
 
-    ax = sns.lineplot(x=range(len(lags)), y=lags, linestyle="-")
-    ax.set(xlabel='Lag', ylabel='Corr Coefficient')
+    datum = pd.DataFrame({
+            "Lags":range(len(lags)), 
+            "Lag-Coefficient":lags
+        })
+
+    p = (
+        ggplot(datum, aes(x='Lags'))
+        + geom_line(aes(y='Lag-Coefficient'))
+        + labs(x='Lag', y='Coefficient')
+        + plotnine.theme_538()
+        + plotnine.theme(figure_size=(10, 6))
+    )
+    print(p)
 
 
 def actualPred(y_true, y_pred):
@@ -40,13 +49,21 @@ def actualPred(y_true, y_pred):
     y_pred : Series or vector
         Predicted values
     """
-    ax = sns.lineplot(x=range(y_true.shape[0]), y=y_true,
-                      color="blue", label="Actual", linestyle="-")
+    datum = pd.DataFrame({
+        "date": range(y_true.shape[0]),
+        "Actual":y_true, 
+        "Prediction":y_pred
+    })
+    datum = pd.melt(datum, id_vars=['date'], value_vars=['Actual', 'Prediction']) 
 
-    ax = sns.lineplot(x=range(y_pred.shape[0]), y=y_pred,
-                  color="yellow", label="Predicted", linestyle="-")
-
-    ax.set(xlabel='Time', ylabel='Y')
+    p = (
+    ggplot(datum, aes(x='date'))
+    + geom_line(aes(y='value', color='variable')) # line plot
+    + labs(x='date', y='Solar Output')
+    + plotnine.theme_538()
+    + plotnine.theme(figure_size=(10, 6))
+    )
+    print(p)
 
 
 def scatter(y_true, y_pred):
@@ -59,5 +76,16 @@ def scatter(y_true, y_pred):
     y_pred : Series or vector
         Predicted values
     """
-    ax = sns.scatterplot(x=y_true, y=y_pred)
-    ax.set(xlabel='Actual', ylabel='Predicted')
+    datum = pd.DataFrame({
+        "Actual":y_true, 
+        "Prediction":y_pred
+    })
+
+    p = (
+    ggplot(datum, aes(x='Actual', y="Prediction", color='"#9B59B6"'))
+    + geom_point() # line plot
+    + labs(x='Actual', y='Prediction')
+    + plotnine.theme_538()
+    + plotnine.theme(figure_size=(10, 6))
+    )
+    print(p)

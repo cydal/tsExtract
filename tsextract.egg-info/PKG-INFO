@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: tsextract
-Version: 0.0.8
+Version: 0.0.9
 Summary: Time series data preprocessing
 Home-page: https://github.com/cydal/tsExtract/tree/master/tsextract
 Author: Sijuade Oguntayo
