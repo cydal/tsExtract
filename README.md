@@ -7,6 +7,9 @@ tsExtract is a time series preprocessing library. Using sliding windows, tsExtra
 
 ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) ![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)    ![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  
 [![Open Source Helpers](https://www.codetriage.com/cydal/tsextract/badges/users.svg)](https://www.codetriage.com/cydal/tsextract)
+[![Downloads](https://pepy.tech/badge/tsextract)](https://pepy.tech/project/tsextract)
+[![Downloads](https://pepy.tech/badge/tsextract/month)](https://pepy.tech/project/tsextract)
+[![Downloads](https://pepy.tech/badge/tsextract/week)](https://pepy.tech/project/tsextract)
 
 
 
