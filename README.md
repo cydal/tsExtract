@@ -3,7 +3,7 @@
 
 ## tsExtract: Time Series Preprocessing Library
 
-tsExtract is a time series preprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression and as well as Deep Learning. 
+tsExtract is a time series preprocessing library. Using sliding windows, tsExtract allows for the conversion of time series data to a form that can be fed into standard machine learning regression algorithms like Linear Regression, Decision Trees Regression as well as Deep Learning. 
 
 ![enter image description here](https://img.shields.io/badge/LICENSE-GNU_GPL-BLACK) ![enter image description here](https://img.shields.io/badge/pypi-v1.0.0-yellow)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/version.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/latest_release_date.svg)  ![enter image description here](https://anaconda.org/cydal/tsextract/badges/platforms.svg)    ![enter image description here](https://anaconda.org/cydal/tsextract/badges/installer/conda.svg)  
 [![Open Source Helpers](https://www.codetriage.com/cydal/tsextract/badges/users.svg)](https://www.codetriage.com/cydal/tsextract)
@@ -150,6 +150,9 @@ As described above, rather than take raw windowing or differencing matrix values
 # Contribute
 
 Contributors of all experience levels are welcome. Please see the contributing guide. 
+
+## Article
+https://sijpapi.medium.com/preprocessing-time-series-data-for-supervised-learning-2e27493f44ae
 
 
 ### Source Code
